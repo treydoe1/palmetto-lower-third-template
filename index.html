@@ -43,6 +43,7 @@
         height: 1080px;
         overflow: hidden;
         background: transparent;
+        perspective: 900px;
       }
 
       .lower-third {
@@ -62,6 +63,8 @@
         height: 207px;
         object-fit: contain;
         transform-origin: center center;
+        transform-style: preserve-3d;
+        backface-visibility: visible;
         will-change: transform, opacity;
       }
 
@@ -204,10 +207,11 @@
       }
 
       window.__timelines = window.__timelines || {};
+      gsap.config({ force3D: true });
       const tl = gsap.timeline({ paused: true });
 
       tl.set(["#lower-third", "#wipe"], { opacity: 0 }, 0);
-      tl.set("#badge", { x: 0, y: 0, rotationY: 0, rotationZ: 0, scale: 0.50, opacity: 0 }, 0);
+      tl.set("#badge", { x: 0, y: 0, rotationY: 0, rotationZ: 0, scale: 0.50, opacity: 0, transformPerspective: 900 }, 0);
       tl.set("#text-block", { x: 94, opacity: 0 }, 0);
 
       tl.set("#wipe", { x: -1498, scaleX: 2, opacity: 1 }, 0.165);
@@ -220,12 +224,18 @@
       tl.to("#text-block", { x: 94, opacity: 1, duration: 0.01 }, 0.30);
       tl.to("#text-block", { x: 0, duration: 1.70, ease: "power3.out" }, 0.33);
       tl.to("#badge", { opacity: 1, duration: 0.01 }, 0.30);
-      tl.to("#badge", { x: 0, y: 0, rotationY: 0, rotationZ: 0, scale: 0.50, duration: 0.033, ease: "none" }, 0.300);
-      tl.to("#badge", { x: 13, y: -4, rotationY: 72, rotationZ: 176, scale: 0.56, duration: 0.166, ease: "none" }, 0.333);
-      tl.to("#badge", { x: -4, y: -5, rotationY: 88, rotationZ: 178, scale: 0.58, duration: 0.167, ease: "none" }, 0.499);
-      tl.to("#badge", { x: 20, y: 2, rotationY: 55, rotationZ: 32, scale: 0.74, duration: 0.167, ease: "none" }, 0.666);
-      tl.to("#badge", { x: -13, y: 8, rotationY: 24, rotationZ: 9, scale: 0.90, duration: 0.332, ease: "power2.out" }, 0.834);
-      tl.to("#badge", { x: 0, y: 0, rotationY: 0, rotationZ: 0, scale: 1, duration: 0.634, ease: "power3.out" }, 1.166);
+      tl.to("#badge", {
+        duration: 1.50,
+        ease: "none",
+        keyframes: [
+          { x: 0, y: 0, rotationY: 0, rotationZ: 0, scale: 0.50, duration: 0.033, ease: "none" },
+          { x: 13, y: -4, rotationY: 72, rotationZ: 176, scale: 0.56, duration: 0.166, ease: "sine.inOut" },
+          { x: -4, y: -5, rotationY: 88, rotationZ: 178, scale: 0.58, duration: 0.167, ease: "sine.inOut" },
+          { x: 20, y: 2, rotationY: 55, rotationZ: 32, scale: 0.74, duration: 0.167, ease: "sine.inOut" },
+          { x: -13, y: 8, rotationY: 24, rotationZ: 9, scale: 0.90, duration: 0.332, ease: "power2.out" },
+          { x: 0, y: 0, rotationY: 0, rotationZ: 0, scale: 1, duration: 0.634, ease: "power3.out" },
+        ],
+      }, 0.300);
 
       tl.set("#wipe", { x: -1498, scaleX: 2, opacity: 1 }, 10.166);
       tl.set("#lower-third", { opacity: 0 }, 10.166);
