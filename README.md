@@ -22,27 +22,29 @@ Text is automatically uppercased, left-justified, and fit-checked for longer nam
 - `AGENTS.md` - instructions for future coding agents
 - `assets/` - embedded badge and local font files
 - `reference/J.D. Larson.mov` - original reference video
-- `renders/palmetto-lower-third-template.webm` - transparent alpha render
-- `renders/palmetto-lower-third-template-preview.png` - preview still on black for inspection
+- Local exports are written outside the repo, usually to `../outputs/`
+- `renders/` is ignored so finished video exports stay on this computer
 
 ## Commands
 
 ```bash
 npm run dev
 npm run check
-npx --yes hyperframes@0.6.95 render --format webm --quality high --fps 30 --output renders/palmetto-lower-third-template.webm
+npx --yes hyperframes@0.6.95 render --format mov --quality high --fps 30 --output ../outputs/lower-third-transparent.mov
 ```
 
 ## Verification
 
-The final WebM should report alpha:
+The final MOV should report an alpha-capable codec/pixel format:
 
 ```bash
-ffprobe -hide_banner -show_entries stream_tags=ALPHA_MODE -of default=nw=1 renders/palmetto-lower-third-template.webm
+ffprobe -hide_banner -show_streams -select_streams v:0 ../outputs/lower-third-transparent.mov
 ```
 
 Expected:
 
 ```text
-TAG:ALPHA_MODE=1
+codec_name=prores
+codec_tag_string=ap4h
+pix_fmt=yuva444p12le
 ```

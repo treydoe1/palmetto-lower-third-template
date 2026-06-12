@@ -16,16 +16,16 @@ This repository contains an editable HyperFrames recreation of the Palmetto Boys
 - Do not add a background plate, card, shadow, glow, gradient, or decorative canvas. The canvas must remain transparent.
 - Keep text alphabet-safe: A-Z, punctuation, and longer names/titles must fit without clipping. The existing `fitToWidth` helper handles long strings; keep it unless replacing it with an equivalent.
 - Preserve the `data-duration="11.011"` timing unless intentionally changing the animation length.
-- Preserve the transparent render target. For alpha delivery, render WebM:
+- Preserve the transparent render target. For production alpha delivery, render MOV locally:
   ```bash
-  npx --yes hyperframes@0.6.95 render --format webm --quality high --fps 30 --output renders/palmetto-lower-third-template.webm
+  npx --yes hyperframes@0.6.95 render --format mov --quality high --fps 30 --output ../outputs/lower-third-transparent.mov
   ```
+- Render exports live on the local computer only. Do not commit `renders/`, `outputs/`, `.mov`, `.webm`, or preview still exports unless explicitly requested.
 
 ## Visual Reference
 
 - Reference video: `reference/J.D. Larson.mov`
-- Current rendered alpha WebM: `renders/palmetto-lower-third-template.webm`
-- Current preview still: `renders/palmetto-lower-third-template-preview.png`
+- Local exports: `../outputs/`
 - The measured held-frame bbox should stay close to reference `(67,803)-(1064,1010)` on a 1920x1080 canvas.
 
 ## Verification Checklist
@@ -34,14 +34,14 @@ Run this before handing off changes:
 
 ```bash
 npm run check
-npx --yes hyperframes@0.6.95 render --format webm --quality high --fps 30 --output renders/palmetto-lower-third-template.webm
-ffprobe -hide_banner -show_entries stream_tags=ALPHA_MODE -of default=nw=1 renders/palmetto-lower-third-template.webm
+npx --yes hyperframes@0.6.95 render --format mov --quality high --fps 30 --output ../outputs/lower-third-transparent.mov
+ffprobe -hide_banner -show_streams -select_streams v:0 ../outputs/lower-third-transparent.mov
 ```
 
 Expected:
 
 - `npm run check` has no errors.
-- `ffprobe` prints `TAG:ALPHA_MODE=1`.
+- `ffprobe` shows an alpha-capable MOV, typically ProRes 4444 with `pix_fmt=yuva444p12le`.
 - HyperFrames may warn that GSAP-controlled elements cannot be drag-edited in Studio. That is expected because the animated entrance/exit intentionally owns those positions.
 - Contrast warnings are expected on a transparent canvas because the validator has no real video background behind the white text.
 
