@@ -27,7 +27,8 @@
 ```bash
 npm run dev          # start the preview server (long-running — keep it alive in background)
 npm run check        # lint + validate + inspect
-npm run render       # render to MP4
+npm run render       # ask where to save, then render transparent ProRes 4444 MOV at 60fps
+npm run render:raw   # raw HyperFrames render command for advanced/manual output flags
 npm run publish      # publish and get a shareable link
 npx hyperframes lint --verbose  # include info-level findings
 npx hyperframes lint --json     # machine-readable output for CI

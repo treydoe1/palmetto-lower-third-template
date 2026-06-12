@@ -30,15 +30,17 @@ Text is automatically uppercased, left-justified, and fit-checked for longer nam
 ```bash
 npm run dev
 npm run check
-npx --yes hyperframes@0.6.95 render --format mov --quality high --fps 30 --output ../outputs/lower-third-transparent.mov
+npm run render
 ```
+
+`npm run render` asks where the transparent MOV should be saved before rendering. Press Enter to use `../outputs/lower-third-transparent.mov`, or paste any absolute/relative path. If the file exists, the script asks before overwriting it.
 
 ## Verification
 
 The final MOV should report an alpha-capable codec/pixel format:
 
 ```bash
-ffprobe -hide_banner -show_streams -select_streams v:0 ../outputs/lower-third-transparent.mov
+ffprobe -hide_banner -show_streams -select_streams v:0 path/to/lower-third-transparent.mov
 ```
 
 Expected:
@@ -47,4 +49,5 @@ Expected:
 codec_name=prores
 codec_tag_string=ap4h
 pix_fmt=yuva444p12le
+r_frame_rate=60/1
 ```

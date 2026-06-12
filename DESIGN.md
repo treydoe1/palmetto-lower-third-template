@@ -9,7 +9,7 @@ Palmetto Boys State broadcast lower third on a fully transparent 1920x1080 canva
 - Badge white: `#ffffff`
 
 ## Typography
-- Barlow Condensed Black embedded from `assets/BarlowCondensed-Black.ttf` for names
+- Barlow Condensed SemiBold embedded from `assets/BarlowCondensed-SemiBold.ttf` for names
 - Barlow Condensed Regular embedded from `assets/BarlowCondensed-Regular.ttf` for titles
 - All text uppercase, left aligned, zero letter spacing
 
