@@ -209,6 +209,35 @@
       window.__timelines = window.__timelines || {};
       gsap.config({ force3D: true });
       const tl = gsap.timeline({ paused: true });
+      const badgeSpin = { progress: 0 };
+
+      function smoothstep(t) {
+        return t * t * (3 - 2 * t);
+      }
+
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      function updateBadgeSpin() {
+        const p = badgeSpin.progress;
+        const turn = Math.min(1, p / 0.38);
+        const grow = Math.max(0, Math.min(1, (p - 0.30) / 0.70));
+        const settle = Math.max(0, Math.min(1, (p - 0.66) / 0.34));
+        const widthFactor = Math.abs(Math.cos(turn * Math.PI));
+        const scaleY = lerp(0.48, 1, smoothstep(grow));
+        const widthBase = lerp(0.49, 1, smoothstep(grow));
+        const edgeWidth = lerp(widthFactor, 1, smoothstep(settle));
+        const tilt = Math.sin(Math.min(1, p / 0.72) * Math.PI) * -15 * (1 - smoothstep(settle));
+
+        gsap.set("#badge", {
+          x: 0,
+          y: Math.sin(Math.PI * p) * 4 * (1 - smoothstep(settle)),
+          rotationZ: tilt,
+          scaleX: Math.max(0.03, widthBase * edgeWidth),
+          scaleY,
+        });
+      }
 
       tl.set(["#lower-third", "#wipe"], { opacity: 0 }, 0);
       tl.set("#badge", { x: 0, y: 0, rotationY: 0, rotationZ: 0, scaleX: 0.41, scaleY: 0.43, opacity: 0, transformPerspective: 900 }, 0);
@@ -224,19 +253,8 @@
       tl.to("#text-block", { x: 94, opacity: 1, duration: 0.01 }, 0.30);
       tl.to("#text-block", { x: 0, duration: 1.70, ease: "power3.out" }, 0.33);
       tl.to("#badge", { opacity: 1, duration: 0.01 }, 0.245);
-      tl.to("#badge", { x: 0, y: 0, rotationZ: 0, scaleX: 0.49, scaleY: 0.50, duration: 0.088, ease: "sine.out" }, 0.245);
-      tl.to("#badge", { x: 0, y: -3, rotationZ: -7, scaleX: 0.43, scaleY: 0.58, duration: 0.100, ease: "sine.inOut" }, 0.333);
-      tl.to("#badge", { x: 0, y: -4, rotationZ: -3, scaleX: 0.08, scaleY: 0.54, duration: 0.167, ease: "sine.inOut" }, 0.433);
-      tl.to("#badge", { x: 0, y: -2, rotationZ: -2, scaleX: 0.03, scaleY: 0.55, duration: 0.033, ease: "sine.inOut" }, 0.600);
-      tl.to("#badge", { x: 0, y: 0, rotationZ: -5, scaleX: 0.10, scaleY: 0.57, duration: 0.033, ease: "sine.inOut" }, 0.633);
-      tl.to("#badge", { x: 0, y: 3, rotationZ: -14, scaleX: 0.27, scaleY: 0.66, duration: 0.134, ease: "sine.inOut" }, 0.666);
-      tl.to("#badge", { x: 0, y: 4, rotationZ: -13, scaleX: 0.38, scaleY: 0.74, duration: 0.134, ease: "sine.out" }, 0.800);
-      tl.to("#badge", { x: 0, y: 4, rotationZ: -11, scaleX: 0.50, scaleY: 0.82, duration: 0.133, ease: "sine.out" }, 0.934);
-      tl.to("#badge", { x: 0, y: 3, rotationZ: -9, scaleX: 0.62, scaleY: 0.89, duration: 0.134, ease: "sine.out" }, 1.067);
-      tl.to("#badge", { x: 0, y: 2, rotationZ: -6, scaleX: 0.74, scaleY: 0.94, duration: 0.133, ease: "sine.out" }, 1.201);
-      tl.to("#badge", { x: 0, y: 1, rotationZ: -4, scaleX: 0.85, scaleY: 0.98, duration: 0.134, ease: "sine.out" }, 1.334);
-      tl.to("#badge", { x: 0, y: 0, rotationZ: -2, scaleX: 0.94, scaleY: 1.00, duration: 0.133, ease: "power2.out" }, 1.468);
-      tl.to("#badge", { x: 0, y: 0, rotationZ: 0, scaleX: 1.00, scaleY: 1.00, duration: 0.165, ease: "power2.out" }, 1.601);
+      tl.to(badgeSpin, { progress: 1, duration: 1.42, ease: "none", onUpdate: updateBadgeSpin }, 0.245);
+      tl.set("#badge", { x: 0, y: 0, rotationZ: 0, scaleX: 1, scaleY: 1 }, 1.665);
 
       tl.set("#wipe", { x: -1498, scaleX: 2, opacity: 1 }, 10.166);
       tl.set("#lower-third", { opacity: 0 }, 10.166);
