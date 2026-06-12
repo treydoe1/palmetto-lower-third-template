@@ -108,16 +108,16 @@
         position: absolute;
         left: 1590px;
         top: 802px;
-        width: 740px;
+        width: 540px;
         height: 206px;
-        transform-origin: center center;
+        transform-origin: left center;
         will-change: transform, opacity;
       }
 
       .stripe {
         position: absolute;
         top: 0;
-        width: 228px;
+        width: 258px;
         height: 206px;
         clip-path: polygon(0 0, 76% 0, 100% 50%, 76% 100%, 0 100%, 17% 50%);
       }
@@ -128,12 +128,12 @@
       }
 
       .stripe.white {
-        left: 126px;
+        left: 143px;
         background: #ffffff;
       }
 
       .stripe.red {
-        left: 228px;
+        left: 255px;
         background: #cf1f43;
       }
 
@@ -141,7 +141,7 @@
         position: absolute;
         left: 0;
         top: 0;
-        width: 640px;
+        width: 513px;
         height: 1px;
         background: #182a5a;
         opacity: 0.7;
@@ -207,24 +207,29 @@
       const tl = gsap.timeline({ paused: true });
 
       tl.set(["#lower-third", "#wipe"], { opacity: 0 }, 0);
-      tl.set("#badge", { x: 53, y: -1, rotationY: 76, rotationZ: -7, scale: 0.58, opacity: 0 }, 0);
-      tl.set("#text-block", { x: 80, opacity: 0 }, 0);
-      tl.set("#wipe", { x: 430, opacity: 1 }, 0.12);
+      tl.set("#badge", { x: 53, y: 51, rotationY: 78, rotationZ: 180, scale: 0.5, opacity: 0 }, 0);
+      tl.set("#text-block", { x: 94, opacity: 0 }, 0);
 
-      tl.to("#wipe", { x: 0, duration: 0.42, ease: "power3.out" }, 0.12);
-      tl.to("#lower-third", { opacity: 1, duration: 0.01 }, 0.18);
-      tl.to("#text-block", { x: 80, opacity: 1, duration: 0.01 }, 0.30);
-      tl.to("#text-block", { x: 0, duration: 0.62, ease: "power3.out" }, 0.38);
-      tl.to("#badge", { x: 17, y: 13, rotationY: 38, rotationZ: -4, scale: 0.82, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.28);
-      tl.to("#badge", { x: 0, y: 0, rotationY: 0, rotationZ: 0, scale: 1, duration: 1.08, ease: "power3.out" }, 0.74);
-      tl.to("#wipe", { x: 760, opacity: 0, duration: 0.58, ease: "power2.in" }, 0.70);
+      tl.set("#wipe", { x: -1498, scaleX: 2, opacity: 1 }, 0.165);
+      tl.to("#wipe", { x: -405, scaleX: 1, duration: 0.168, ease: "none" }, 0.165);
+      tl.to("#wipe", { x: 0, duration: 0.167, ease: "none" }, 0.333);
+      tl.to("#wipe", { x: 202, duration: 0.167, ease: "none" }, 0.500);
+      tl.to("#wipe", { x: 330, opacity: 0, duration: 0.160, ease: "none" }, 0.667);
 
-      tl.to("#text-block", { x: 1130, opacity: 0, duration: 0.72, ease: "power3.in" }, 9.98);
-      tl.to("#badge", { x: 1130, opacity: 0, duration: 0.72, ease: "power3.in" }, 9.98);
-      tl.set("#wipe", { x: -405, opacity: 1 }, 9.92);
-      tl.to("#wipe", { x: 715, duration: 0.92, ease: "power2.inOut" }, 9.92);
-      tl.to("#wipe", { opacity: 0, duration: 0.08, ease: "none" }, 10.93);
-      tl.set("#lower-third", { opacity: 0 }, 10.93);
+      tl.to("#lower-third", { opacity: 1, duration: 0.01 }, 0.30);
+      tl.to("#text-block", { x: 94, opacity: 1, duration: 0.01 }, 0.30);
+      tl.to("#text-block", { x: 0, duration: 1.70, ease: "power3.out" }, 0.33);
+      tl.to("#badge", { opacity: 1, duration: 0.01 }, 0.30);
+      tl.to("#badge", { x: 53, y: 42, rotationY: 78, rotationZ: 180, scale: 0.5, duration: 0.18, ease: "none" }, 0.30);
+      tl.to("#badge", { x: 17, y: 13, rotationY: 44, rotationZ: -7, scale: 0.82, duration: 0.64, ease: "power2.inOut" }, 0.48);
+      tl.to("#badge", { x: 0, y: 0, rotationY: 0, rotationZ: 0, scale: 1, duration: 0.68, ease: "power3.out" }, 1.12);
+
+      tl.set("#wipe", { x: -1498, scaleX: 2, opacity: 1 }, 10.166);
+      tl.set("#lower-third", { opacity: 0 }, 10.166);
+      tl.to("#wipe", { x: -405, scaleX: 1, duration: 0.168, ease: "none" }, 10.166);
+      tl.to("#wipe", { x: 0, duration: 0.166, ease: "none" }, 10.334);
+      tl.to("#wipe", { x: 202, duration: 0.170, ease: "none" }, 10.500);
+      tl.to("#wipe", { x: 330, opacity: 0, duration: 0.160, ease: "none" }, 10.670);
 
       window.__timelines["main"] = tl;
     </script>
