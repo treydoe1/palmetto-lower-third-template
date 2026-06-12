@@ -1,0 +1,6 @@
+Render?,Order,Name,Subtitle,Output File Name,Save Folder,Notes,Status
+YES,1,RYAN BOOTH,GRAPHIC DESIGNER,ryan-booth-lower-third.mov,../outputs,Example row. Replace or delete.,Ready
+YES,2,FIRST LAST,TITLE OR ROLE,first-last-lower-third.mov,../outputs,,Ready
+NO,3,,,,../outputs,Set Render? to YES when ready.,Draft
+,4,,,,../outputs,,
+,5,,,,../outputs,,

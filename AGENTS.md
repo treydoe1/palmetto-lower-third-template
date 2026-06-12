@@ -21,6 +21,11 @@ This repository contains an editable HyperFrames recreation of the Palmetto Boys
   npm run render
   ```
 - Render exports live on the local computer only. Do not commit `renders/`, `outputs/`, `.mov`, `.webm`, or preview still exports unless explicitly requested.
+- For multi-person jobs, collect rows using `templates/lower-third-roster-template.csv` or the workbook generated at `../outputs/palmetto-lower-third-roster-template.xlsx`. Required columns are `Name` and `Subtitle`; preserve `Output File Name` and `Save Folder` when batch rendering.
+
+## Dependencies
+
+Users rendering the repo need Node.js 22+, `npm`/`npx`, and FFmpeg. HyperFrames is invoked through `npx --yes hyperframes@0.6.95`; no permanent HyperFrames install is required.
 
 ## Visual Reference
 
