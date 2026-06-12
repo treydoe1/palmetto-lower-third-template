@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "PBS Name";
+        src: url("./assets/BarlowCondensed-Black.ttf") format("truetype");
+        font-weight: 900;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "PBS Title";
+        src: url("./assets/BarlowCondensed-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      body {
+        font-family: "PBS Title", sans-serif;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      .lower-third {
+        position: absolute;
+        left: 67px;
+        top: 803px;
+        width: 1130px;
+        height: 207px;
+        transform-origin: left center;
+      }
+
+      .badge {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 157px;
+        height: 207px;
+        object-fit: contain;
+        transform-origin: center center;
+        will-change: transform, opacity;
+      }
+
+      .text-block {
+        position: absolute;
+        left: 186px;
+        top: 38px;
+        width: 930px;
+        height: 132px;
+        color: #ffffff;
+        text-align: left;
+        white-space: nowrap;
+        transform-origin: left center;
+        will-change: transform, opacity;
+      }
+
+      .name {
+        display: block;
+        width: max-content;
+        max-width: 930px;
+        font-family: "PBS Name", sans-serif;
+        font-size: 86px;
+        line-height: 0.82;
+        font-weight: 900;
+        letter-spacing: 0;
+        text-align: left;
+      }
+
+      .title {
+        display: block;
+        width: max-content;
+        max-width: 930px;
+        margin-top: 24px;
+        font-family: "PBS Title", sans-serif;
+        font-size: 52px;
+        line-height: 0.86;
+        font-weight: 400;
+        letter-spacing: 0;
+        text-align: left;
+        transform-origin: left center;
+      }
+
+      .wipe {
+        position: absolute;
+        left: 1590px;
+        top: 802px;
+        width: 740px;
+        height: 206px;
+        transform-origin: center center;
+        will-change: transform, opacity;
+      }
+
+      .stripe {
+        position: absolute;
+        top: 0;
+        width: 228px;
+        height: 206px;
+        clip-path: polygon(0 0, 76% 0, 100% 50%, 76% 100%, 0 100%, 17% 50%);
+      }
+
+      .stripe.navy {
+        left: 0;
+        background: #182a5a;
+      }
+
+      .stripe.white {
+        left: 126px;
+        background: #ffffff;
+      }
+
+      .stripe.red {
+        left: 228px;
+        background: #cf1f43;
+      }
+
+      .hairline {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 640px;
+        height: 1px;
+        background: #182a5a;
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-t450" id="root" data-composition-id="main" data-start="0" data-duration="11.011" data-width="1920" data-height="1080">
+      <div data-hf-id="hf-td73" id="lower-third" class="lower-third clip" data-start="0" data-duration="11.011" data-track-index="1">
+        <img data-hf-id="hf-giwg" id="badge" class="badge" src="./assets/pbs-badge.png" alt="">
+        <div data-hf-id="hf-a9ym" id="text-block" class="text-block">
+          <span data-hf-id="hf-h6c7" id="name" class="name"></span>
+          <span data-hf-id="hf-7kdn" id="title" class="title"></span>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-5jyk" id="wipe" class="wipe clip" data-start="0" data-duration="11.011" data-track-index="2">
+        <div data-hf-id="hf-9zh6" class="hairline"></div>
+        <div data-hf-id="hf-yhv9" class="stripe navy"></div>
+        <div data-hf-id="hf-fdgc" class="stripe white"></div>
+        <div data-hf-id="hf-rtem" class="stripe red"></div>
+      </div>
+    </div>
+
+    <script>
+      const LOWER_THIRD = {
+        name: "J.D. LARSON",
+        title: "AMERICAN LEGION NATIONAL VICE COMMANDER",
+      };
+
+      const nameEl = document.getElementById("name");
+      const titleEl = document.getElementById("title");
+      nameEl.textContent = LOWER_THIRD.name.toUpperCase();
+      titleEl.textContent = LOWER_THIRD.title.toUpperCase();
+
+      function fitToWidth(el, maxWidth, minSize, baseScaleX = 1) {
+        el.style.fontSize = "";
+        el.style.transform = `scaleX(${baseScaleX})`;
+        const baseSize = parseFloat(getComputedStyle(el).fontSize);
+        const naturalWidth = el.scrollWidth * baseScaleX;
+        if (naturalWidth <= maxWidth) return;
+        const nextSize = Math.max(minSize, Math.floor((baseSize * maxWidth) / naturalWidth));
+        el.style.fontSize = `${nextSize}px`;
+        const resizedWidth = el.scrollWidth * baseScaleX;
+        if (resizedWidth > maxWidth) {
+          el.style.transformOrigin = "left center";
+          el.style.transform = `scaleX(${baseScaleX * (maxWidth / resizedWidth)})`;
+        }
+      }
+
+      function applyTextFit() {
+        fitToWidth(nameEl, 930, 58);
+        fitToWidth(titleEl, 930, 36);
+      }
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(applyTextFit);
+      } else {
+        applyTextFit();
+      }
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.set(["#lower-third", "#wipe"], { opacity: 0 }, 0);
+      tl.set("#badge", { x: 53, y: -1, rotationY: 76, rotationZ: -7, scale: 0.58, opacity: 0 }, 0);
+      tl.set("#text-block", { x: 80, opacity: 0 }, 0);
+      tl.set("#wipe", { x: 430, opacity: 1 }, 0.12);
+
+      tl.to("#wipe", { x: 0, duration: 0.42, ease: "power3.out" }, 0.12);
+      tl.to("#lower-third", { opacity: 1, duration: 0.01 }, 0.18);
+      tl.to("#text-block", { x: 80, opacity: 1, duration: 0.01 }, 0.30);
+      tl.to("#text-block", { x: 0, duration: 0.62, ease: "power3.out" }, 0.38);
+      tl.to("#badge", { x: 17, y: 13, rotationY: 38, rotationZ: -4, scale: 0.82, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.28);
+      tl.to("#badge", { x: 0, y: 0, rotationY: 0, rotationZ: 0, scale: 1, duration: 1.08, ease: "power3.out" }, 0.74);
+      tl.to("#wipe", { x: 760, opacity: 0, duration: 0.58, ease: "power2.in" }, 0.70);
+
+      tl.to("#text-block", { x: 1130, opacity: 0, duration: 0.72, ease: "power3.in" }, 9.98);
+      tl.to("#badge", { x: 1130, opacity: 0, duration: 0.72, ease: "power3.in" }, 9.98);
+      tl.set("#wipe", { x: -405, opacity: 1 }, 9.92);
+      tl.to("#wipe", { x: 715, duration: 0.92, ease: "power2.inOut" }, 9.92);
+      tl.to("#wipe", { opacity: 0, duration: 0.08, ease: "none" }, 10.93);
+      tl.set("#lower-third", { opacity: 0 }, 10.93);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
